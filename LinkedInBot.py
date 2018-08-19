@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 driver = webdriver.Firefox(executable_path='/usr/local/bin/geckodriver')
 
+#Search for link in page with attributes href
 def getPeopleLinks(page):
     links = []
     for link in page.find_all('a'):
@@ -13,6 +14,8 @@ def getPeopleLinks(page):
             if 'profile/view?id=' in url:
                 links.append(url)
     return links
+
+#Search for jobs in page with attribute href
 def getJobLinks(page):
     links = []
     for link in page.find_all('a'):
@@ -21,10 +24,13 @@ def getJobLinks(page):
             if '/jobs' in url:
                 links.append(url)
     return links
+#Get the ID of links
 def getID(url):
     pUrl = urlparse.urlparse(url)
     return urlparse.parse_qs(pUrl.query) ['id'][0]
 
+#Visit link and add visited link to an array
+#Visit link if it's not in the list already
 def ViewBot(browser):
     visited = {}
     pList = []
@@ -59,20 +65,24 @@ def ViewBot(browser):
 			+str(count)+"/"+str(len(pList))+") Visited/Queue)")
 
 def Main():
+    #Parse as argument login email and password
     parser = argparse.ArgumentParser()
     parser.add_argument('email', help='linkedin email')
     parser.add_argument('password', help='linkedin password')
     args = parser.parse_args()
 
+    #Navigate to login page
     browser = webdriver.Firefox()
     browser.get('https://linkedin.com/uas/login')
 
+    #Search for id form
     emailElement = browser.find_element_by_id('session_key-login')
     emailElement.send_keys(args.email)
     passElement = browser.find_element_by_id('session_password-login')
     passElement.send_keys(args.password)
     passElement.submit()
 
+    #Initialise ViewBot
     os.system('clear') #cls rather than clear on windows
     print ("[+] Success! Logged In, Bot Starting")
     ViewBot(browser)
