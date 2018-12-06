@@ -1,4 +1,4 @@
-# LinkedIn Bot
+# LinkedIn Bot:
 
 This python bot lets you login into your Linkedin account and automatically navigates to people and jobs profiles which appear in your network.
 Ideal if you need to amplify your network or apply for jobs.
