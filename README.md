@@ -10,3 +10,4 @@ That is why this bot can visit a profile for a random period of 2.5 to 6.9 secon
 # Instructions:
 
          - python3 LinkedInBot.py ['login email'] ['login password']
+         ``` cd alt ```
